@@ -1,0 +1,117 @@
+// 作品数据 - 这里可以替换为您的实际作品链接
+const works = [
+    {
+        type: 'video',
+        title: 'AIGC技术展示',
+        thumbnail: 'https://example.com/thumb1.jpg', // 替换为实际缩略图
+        url: 'https://example.com/video1.mp4', // 替换为实际视频链接
+        description: '展示AIGC技术在视频创作中的应用',
+        date: '2024-01-15'
+    },
+    {
+        type: 'image',
+        title: 'ComfyUI工作流',
+        thumbnail: 'https://example.com/image1.jpg', // 替换为实际图片
+        url: 'https://example.com/image1.jpg', // 替换为实际大图
+        description: '使用ComfyUI搭建的AI绘画工作流',
+        date: '2024-01-10'
+    },
+    {
+        type: 'video',
+        title: '短视频创作案例',
+        thumbnail: 'https://example.com/thumb2.jpg',
+        url: 'https://example.com/video2.mp4',
+        description: '商业短视频创作实例',
+        date: '2024-01-08'
+    },
+    {
+        type: 'image',
+        title: '剧本创作分镜',
+        thumbnail: 'https://example.com/image2.jpg',
+        url: 'https://example.com/image2.jpg',
+        description: '影视剧本分镜设计',
+        date: '2024-01-05'
+    }
+];
+
+// 初始化页面
+document.addEventListener('DOMContentLoaded', function() {
+    loadGallery();
+});
+
+// 加载作品画廊
+function loadGallery() {
+    const gallery = document.getElementById('gallery');
+    
+    if (works.length === 0) {
+        gallery.innerHTML = '<div class="loading">暂无作品展示</div>';
+        return;
+    }
+    
+    gallery.innerHTML = '';
+    
+    works.forEach(work => {
+        const workElement = document.createElement('div');
+        workElement.className = 'gallery-item';
+        workElement.onclick = () => openModal(work);
+        
+        if (work.type === 'image') {
+            workElement.innerHTML = `
+                <img src="${work.thumbnail}" alt="${work.title}" onerror="this.src='https://via.placeholder.com/300x200/667eea/ffffff?text=缩略图'">
+                <div class="item-info">
+                    <h3>${work.title}</h3>
+                    <p>${work.description}</p>
+                    <p><small>创建时间: ${work.date}</small></p>
+                </div>
+            `;
+        } else {
+            workElement.innerHTML = `
+                <video poster="${work.thumbnail}">
+                    <source src="${work.url}" type="video/mp4">
+                </video>
+                <div class="item-info">
+                    <h3>${work.title}</h3>
+                    <p>${work.description}</p>
+                    <p><small>创建时间: ${work.date}</small></p>
+                </div>
+            `;
+        }
+        
+        gallery.appendChild(workElement);
+    });
+}
+
+// 打开模态框
+function openModal(work) {
+    const modal = document.getElementById('modal');
+    const modalImage = document.getElementById('modal-image');
+    const modalVideo = document.getElementById('modal-video');
+    
+    if (work.type === 'image') {
+        modalImage.src = work.url;
+        modalImage.style.display = 'block';
+        modalVideo.style.display = 'none';
+    } else {
+        modalVideo.innerHTML = `<source src="${work.url}" type="video/mp4">`;
+        modalVideo.style.display = 'block';
+        modalImage.style.display = 'none';
+    }
+    
+    modal.style.display = 'block';
+    
+    // 点击背景关闭
+    modal.onclick = function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    };
+}
+
+// 关闭模态框
+function closeModal() {
+    const modal = document.getElementById('modal');
+    const modalVideo = document.getElementById('modal-video');
+    
+    modal.style.display = 'none';
+    modalVideo.pause(); // 暂停视频播放
+}

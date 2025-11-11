@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙思丞 - 作品集</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>龙思丞作品集</h1>
+            <p>内容策划 / 视频编辑 / AIGC创作</p>
+        </header>
+
+        <!-- 作品展示区 -->
+        <div class="gallery" id="gallery">
+            <!-- 作品将通过JavaScript动态加载 -->
+            <div class="loading">加载中...</div>
+        </div>
+
+        <footer>
+            <p>联系方式: 18725791469 | 1355507578@qq.com</p>
+        </footer>
+    </div>
+
+    <!-- 模态框 -->
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modal-image" src="" alt="">
+            <video id="modal-video" controls style="display:none;">
+                <source src="" type="video/mp4">
+                您的浏览器不支持视频播放
+            </video>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
